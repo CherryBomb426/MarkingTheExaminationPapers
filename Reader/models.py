@@ -8,15 +8,15 @@ import numpy as np
 @dataclass
 class ExamResult:
     """考试结果数据类"""
-    score: float
-    correct_count: int
-    wrong_count: int
-    unanswered_count: int
-    wrong_questions: List[int]
-    unanswered_questions: List[int]
-    total_questions: int
-    question_results: List = None
-    graded_image: Optional[np.ndarray] = None
+    score: float  # 考试总分 (0-100)
+    correct_count: int  # 正确题数
+    wrong_count: int  # 错误题数
+    unanswered_count: int  # 未答题数
+    wrong_questions: List[int]  # 错题编号列表
+    unanswered_questions: List[int]  # 未答题目编号列表
+    total_questions: int  # 总题数
+    question_results: List = None  # 每题详细结果列表(可选)
+    graded_image: Optional[np.ndarray] = None  # 评分后的图像数据(可选)
     
     def __post_init__(self):
         """数据验证"""
@@ -43,7 +43,31 @@ class ExamResult:
         return (f"总分: {self.score:.1f}% | "
                 f"答对: {self.correct_count}/{self.total_questions} | "
                 f"答错: {self.wrong_count} | "
-                f"未答: {self.unanswered_count}")
+                f"未答: {self.unanswered_count} | ")
+    
+    # def save_graded_image(self, file_path: str) -> bool:
+    #     """保存评卷图像到指定路径
+    #
+    #     Args:
+    #         file_path: 图像保存路径
+    #
+    #     Returns:
+    #         bool: 保存成功返回True，否则返回False
+    #     """
+    #     if self.graded_image is not None:
+    #         import cv2
+    #         return cv2.imwrite(file_path, self.graded_image)
+    #     return False
+    #
+    # def show_graded_image(self):
+    #     """显示评卷图像（如果可用）"""
+    #     if self.graded_image is not None:
+    #         import cv2
+    #         cv2.imshow('Graded Image', self.graded_image)
+    #         cv2.waitKey(0)
+    #         cv2.destroyAllWindows()
+    #     else:
+    #         print("没有评卷图像可供显示")
     
     def get_exam_info(self) -> dict:
         """
@@ -60,6 +84,5 @@ class ExamResult:
             "wrong_questions": self.wrong_questions,
             "unanswered_questions": self.unanswered_questions,
             "total_questions": self.total_questions,
-            "accuracy_rate": self.get_accuracy_rate(),
-            "graded_image_available": self.graded_image is not None
+            "accuracy_rate": self.get_accuracy_rate()
         }

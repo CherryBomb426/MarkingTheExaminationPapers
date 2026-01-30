@@ -24,6 +24,9 @@ def main():
     try:
         print(f"处理图像: {image_path}")
         result = grader.process_exam(image_path, answer_key)
+
+        # 这里是试卷判卷后的试卷信息
+        result.get_exam_info()
         
         # 输出结果
         print("\n判卷结果:")
