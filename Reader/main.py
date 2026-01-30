@@ -12,7 +12,7 @@ def main():
     grader = ExamGraderFactory.create_omr_grader()
     
     # 设置参数
-    image_path = "images/test_03.png"
+    image_path = "../images/test_03.png"
     answer_key = {
         0: 1,
         1: 4,

@@ -114,7 +114,7 @@ grader = ExamGraderFactory.create_omr_grader()
 answer_key = {0: 1, 1: 4, 2: 0, 3: 3, 4: 1}
 
 # 处理目录中的所有图像
-image_dir = "images/"
+image_dir = "../images/"
 results = []
 
 for filename in os.listdir(image_dir):
